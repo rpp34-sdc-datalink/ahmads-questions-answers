@@ -25,7 +25,7 @@ class App extends React.Component {
       relatedProducts: [],
       sort: 'relevant',
       meta: {},
-      product_id: 64620,
+      product_id: 71967,
       outfitList: [],
     }
 

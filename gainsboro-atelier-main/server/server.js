@@ -32,14 +32,13 @@ app.get('/overview/:product_id', (req, res) => {
   const options = {
     headers: {Authorization: token}
   };
-
-  axios.get(`${apiHost}/products/${product_id}/styles/`, options)
-  .then(async ({data: {results: styleData}}) => {
-    const {data: generalData} = await axios.get(`${apiHost}/products/${product_id}`, options);
-    const data = { styleData, ...generalData};
-    res.send(data)
-  })
-  .catch(err => res.sendStatus(500))
+    axios.get(`${apiHost}/products/${product_id}/styles/`, options)
+    .then(async ({data: {results: styleData}}) => {
+      const {data: generalData} = await axios.get(`${apiHost}/products/${product_id}`, options);
+      const data = { styleData, ...generalData};
+      res.send(data)
+    })
+    .catch(err => res.sendStatus(500))
 })
 
 app.post('/cart', (req, res)=>{
