@@ -1,0 +1,35 @@
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
+const productSchema = new Schema({
+  product_id: String,
+  results: [{type: Schema.Types.ObjectId, ref: 'Question'}],
+});
+const questionSchema = new Schema({
+  question_id: Number,
+  question_body: String,
+  question_date: String,
+  asker_name: String,
+  question_helpfulness: Number,
+  reported: Boolean,
+  answers: {type: Schema.Types.ObjectId, ref: 'Answer'}
+})
+const answerSchema = new Schema({
+  question:  String,
+  page: Number,
+  count: Number,
+  results: [
+    { answer_id: Number,
+      body: String,
+      date: String,
+      answerer_name: String,
+      helpfulness: Number,
+      photos: [{type: Schema.Types.ObjectId, ref: 'Photo'}]
+    }],
+});
+const photosSchema = new Schema({
+  id: Number,
+  url: String
+});
+const Photo = mongoose.model('Photo', photosSchema);
+const Answer = mongoose.model('Answer', answerSchema);
+const Question = mongoose.model('Question', questionSchema);
