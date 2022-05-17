@@ -14,8 +14,9 @@ CREATE TABLE Questions (
   Asker_Name varchar(40) NOT NULL,
   Product_Id int,
   Reported BOOLEAN NOT NULL,
-  PRIMARY KEY (Question_Id),
-  FOREIGN KEY (Product_Id) REFERENCES ProductId(Product_Id)
+  Helpful int NOT NULL,
+  PRIMARY KEY (Question_Id)
+  -- FOREIGN KEY (Product_Id) REFERENCES ProductId(Product_Id)
 );
 
 CREATE TABLE Answers (
