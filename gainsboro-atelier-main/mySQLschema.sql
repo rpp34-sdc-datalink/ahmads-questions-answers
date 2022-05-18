@@ -32,8 +32,8 @@ CREATE TABLE Answers (
 
 CREATE TABLE Photos (
   Photo_Id int,
-  Photo_url varchar(125),
+  Photo_url varchar(175),
   Answer_Id int,
-  PRIMARY KEY (Photo_Id),
-  FOREIGN KEY (Answer_Id) REFERENCES Answers(Answer_Id)
+  PRIMARY KEY (Photo_Id)
+  -- FOREIGN KEY (Answer_Id) REFERENCES Answers(Answer_Id)
 );

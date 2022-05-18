@@ -100,10 +100,43 @@ async function processLineByLineAnswers(count, lineCount) {
   }
 };
 
+async function processLineByLineAnswers_Photos(count, lineCount) {
+  try {
+    const lineThatIsRead = readline.createInterface({
+      input: fs.createReadStream('answer_photos.csv'),
+      crlfDelay: Infinity
+    });
+    lineThatIsRead.on('line', (line) => {
+      if (count > 0) {
+        var quotes = 0;
+        var array = line.split(',');
+        [id, answer_id, url] = array;
+        console.log(array.length, array)
+
+        var sqlInsertCode = `INSERT INTO Photos (Photo_Id, Photo_url, Answer_Id) VALUES (${Number(id)}, ${url}, ${Number(answer_id)})`
+          connection.query(sqlInsertCode, function (err, result) {
+            lineCount++;
+            if (err) throw err;
+            console.log('Inserted line ', lineCount, 'into the Answers_Photos Table');
+          })
+      }
+      count++;
+    });
+
+    await events.once(lineThatIsRead, 'close');
+
+    console.log('Reading file line by line with readline done.');
+    const used = process.memoryUsage().heapUsed / 1024 / 1024;
+    console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 connection.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
-  processLineByLineQuestions(0, 1);
-  processLineByLineAnswers(0, 1);
+  // processLineByLineQuestions(0, 1);
+  // processLineByLineAnswers(0, 1);
+  processLineByLineAnswers_Photos(0, 1);
 })
