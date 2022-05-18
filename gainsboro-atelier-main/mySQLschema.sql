@@ -24,10 +24,10 @@ CREATE TABLE Answers (
   Answer_Body varchar(255) NOT NULL,
   Answer_Date varchar(25) NOT NULL,
   Answerer_Name varchar(40) NOT NULL,
-  Question_Id int,
+  Question_Id int NOT NULL,
   Helpfulness int NOT NULL,
-  PRIMARY KEY (Answer_Id),
-  FOREIGN KEY (Question_Id) REFERENCES Questions(Question_Id)
+  PRIMARY KEY (Answer_Id)
+  -- FOREIGN KEY (Question_Id) REFERENCES Questions(Question_Id)
 );
 
 CREATE TABLE Photos (
