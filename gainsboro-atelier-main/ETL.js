@@ -11,7 +11,6 @@ var connection = mysql.createConnection({
 
 // var unix_timestamp = n;
 // date = new Date(unix_timestamp * 1000);
-
 async function processLineByLineQuestions(count, lineCount) {
   try {
     const lineThatIsRead = readline.createInterface({
