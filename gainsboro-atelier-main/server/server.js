@@ -43,7 +43,7 @@ app.get('/overview/:product_id', (req, res) => {
 
 app.post('/cart', (req, res)=>{
   const {sku_id} = req.body;
-  // console.log(sku_id);
+  console.log('lksjd');
 
   const url = `${apiHost}/cart`;
   const data = {
