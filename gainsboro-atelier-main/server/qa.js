@@ -77,10 +77,8 @@ qaRouter.route('/questions')
         var queryStatement = `Select * from Questions where Product_Id = ${product_id}`;
         connection.query(queryStatement, function (error, data){
             if (error) res.sendStatus(500);
-            console.log('data')
             var dataLength = data.length - 1;
             const loop = async () => {
-                console.log('hi')
                 var count = 0;
                 for (const index of data) {
                     var question_Id = data[count]['Question_Id'];
@@ -149,20 +147,21 @@ qaRouter.route('/questions/:question_id/helpful')
 
 
 
-qaRouter.route('/qa/answers/answer_id/helpful')
-    .post(jsonParser, (req, res) => {
-        console.log('hiasdfsdfs')
-        var {answer_id} = req.params;
-        var product_id = req.body;
-        console.log(product_id, 'skdjf')
-        var url = `${apiHost}/qa/questions/${answer_id}/helpful`;
-        var queryStatement = `UPDATE Questions set Helpful = Helpful + 1 where Product_Id = ${product_id} AND question_id = ${question_id}`;
-        connection.query(queryStatement, function (error, data){
-            if (error) res.sendStatus(500);
-            console.log('not an error')
-            res.send(data);
-        })
-    })
+// qaRouter.route('/qa/answers/answer_id/helpful')
+//     .post(jsonParser, (req, res) => {
+//         console.log('hiasdfsdfs')
+//         var answer_id = req.body.answer_Id;
+//         var question_id = req.body.question_Id;
+//         console.log(answer_id, question_id)
+//         console.log(product_id, 'skdjf')
+//         var url = `${apiHost}/qa/questions/${answer_id}/helpful`;
+//         var queryStatement = `UPDATE Answers set Helpfulness = Helpfulness + 1 where Answer_Id = ${answer_id} AND Question_Id = ${question_id}`;
+//         connection.query(queryStatement, function (error, data){
+//             if (error) res.sendStatus(500);
+//             console.log('not an error')
+//             res.send('Successful Helpful Answer Update');
+//         })
+//     })
 
 // qaRouter.route('/answers/:answer_id/helpful')
 //     .post(jsonParser, (req, res) => {

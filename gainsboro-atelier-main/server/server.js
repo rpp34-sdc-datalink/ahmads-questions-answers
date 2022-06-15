@@ -20,6 +20,20 @@ app.use(compression());
 app.use(express.static(path.join(__dirname, "/../client/dist")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+  host     : '127.0.0.1',
+  user     : 'root',
+  password : '',
+  database : 'SDC'
+});
+
+connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected to the Gosh Darn DataBase!");
+});
+
 
 var options = {
   headers: {
@@ -187,6 +201,18 @@ app.put('/reviews/:review_id/report', (req, res) => {
 })
 
 app.use('/qa',  qaRouter);
+
+app.post('/answers/answer_id/helpful', (req, res) => {
+        var answer_id = req.body.answer_Id;
+        var question_id = req.body.question_Id;
+        var url = `${apiHost}/qa/questions/${answer_id}/helpful`;
+        var queryStatement = `UPDATE Answers set Helpfulness = Helpfulness + 1 where Answer_Id = ${answer_id} AND Question_Id = ${question_id}`;
+        connection.query(queryStatement, function (error, data){
+            if (error) res.sendStatus(500);
+            console.log('not an error')
+            res.send('Successful Helpful Answer Update');
+        })
+    })
 
 app.post('/interactions', jsonParser, (req, res) => {
   var body = req.body;

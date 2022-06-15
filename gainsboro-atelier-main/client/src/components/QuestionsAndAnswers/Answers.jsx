@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {MdCheckCircle, MdOutlineClose} from 'react-icons/md'
-
+import $ from "jquery";
 
 const VoteLink = styled.a`
   & {
@@ -75,17 +75,14 @@ class Answer extends React.Component {
     }
 
     saveHelpful() {
-        fetch(`/qa/answers/${this.props.Answer_Id}/helpful`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                ...this.state,
-                product_id: this.props.productId
-            })
+        const Question_Id = this.props?.ans?.Question_Id;
+        const Answer_Id = this.props?.ans?.Answer_Id
+        $.post(`/answers/answer_id/helpful`, {
+            question_Id: Question_Id,
+            answer_Id: Answer_Id
         })
-        .then(() => {
+        .done((data) => {
+            console.log(data)
             this.setState({
                 helpfulVoted: true,
             })
@@ -99,7 +96,7 @@ class Answer extends React.Component {
     }
 
     report() {
-        fetch(`/qa/answers/${this.props.ans.Answer_Id}/report`, {
+        fetch(`/qa/answers/answer_id/report`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -140,13 +137,13 @@ class Answer extends React.Component {
                     by {this.props?.ans?.Answerer_Name}, {formatedDate} | Helpful?
                     {this.state?.helpfulVoted ?
                         <>
-                            <Count>({this.props?.ans?.Helpful + 1})</Count>
+                            <Count>({this.props?.ans?.Helpfulness + 1})</Count>
                             <CheckCircle />
                             <ColoredMessage>Thank you for your feedback.</ColoredMessage>
                         </> :
                         <>
-                            <VoteLink onClick={() => this.saveHelpful()}>Yes</VoteLink>
-                            <Count>({this.props?.ans?.Helpful})</Count>
+                            <VoteLink onClick={() => this.saveHelpful()} >Yes</VoteLink>
+                            <Count>({this.props?.ans?.Helpfulness})</Count>
                         </>
                     }
                 <span>| </span>
