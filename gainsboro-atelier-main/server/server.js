@@ -218,7 +218,6 @@ app.post('/answers/answer_id/report', (req, res) => {
     console.log(answer_id, question_id, 'hi')
     var queryStatement = `UPDATE Answers set Reported = 1 where Answer_Id = ${answer_id} AND Question_Id = ${question_id}`;
     connection.query(queryStatement, function (error, data){
-      console.log('right before error')
       if (error) {
         res.sendStatus(500);
       } else {
@@ -226,6 +225,23 @@ app.post('/answers/answer_id/report', (req, res) => {
       }
   })
 })
+
+app.post('/questions/question_id/helpful', (req, res) => {
+  var question_id = req.body.question_Id;
+  var product_id = req.body.product_Id;
+  var queryStatement = `UPDATE Questions set Helpful = Helpful + 1 where Product_Id = ${product_id} AND question_id = ${question_id}`;
+  connection.query(queryStatement, function (error, data){
+      if (error) {
+        res.sendStatus(500);
+      } else {
+        console.log('Successful Questions Id Update')
+        res.send(data);
+      }
+  })
+})
+
+
+
 
 app.post('/interactions', jsonParser, (req, res) => {
   var body = req.body;

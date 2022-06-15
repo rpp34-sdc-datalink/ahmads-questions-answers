@@ -1,8 +1,7 @@
-
-
 import React from 'react';
 import styled from 'styled-components';
 import {MdCheckCircle, MdOutlineClose} from 'react-icons/md'
+import $ from "jquery";
 
 const Container = styled.div`
     display: flex;
@@ -61,16 +60,15 @@ export class Question extends React.Component {
     }
 
     saveHelpful() {
-        fetch(`/qa/questions/${this.props.qa.question_id}/helpful`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                product_id: this.props.productId
-            })
+        console.log(this.props.qa)
+        const Question_Id = this.props?.qa?.Question_Id;
+        const Product_Id = this.props?.qa?.Product_Id;
+        $.post(`/questions/question_id/helpful`, {
+            question_Id: Question_Id,
+            product_Id: Product_Id
         })
-        .then(() => {
+        .done((data) => {
+            console.log(data)
             this.setState({
                 helpfulVoted: true,
             })

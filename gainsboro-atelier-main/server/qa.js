@@ -103,7 +103,7 @@ qaRouter.route('/questions')
             var sqlInsertCode = `INSERT INTO questions (Question_Id, Question_Body, Question_Date, Asker_Name, Product_Id, Reported, Helpful) VALUES (${questionMax}, "${body}", "${date}", "${name}", ${product_id}, ${0}, ${0})`;
             connection.query(sqlInsertCode, function(err, data) {
                 if (err) res.sendStatus(500);
-                // console.log('done')
+                console.log('done')
                 res.send('data')
             })
         })
@@ -131,39 +131,18 @@ qaRouter.route('/questions')
 //     })
 
 
-qaRouter.route('/questions/:question_id/helpful')
-    .post(jsonParser, (req, res) => {
-        var {question_id} = req.params;
-        var product_id = req.body;
-        var url = `${apiHost}/qa/questions/${question_id}/helpful`;
-        var queryStatement = `UPDATE Questions set Helpful = Helpful + 1 where Product_Id = ${product_id} AND question_id = ${question_id}`;
-        connection.query(queryStatement, function (error, data){
-            if (error) res.sendStatus(500);
-            console.log('not an error')
-            res.send(data);
-        })
-    })
-
-    // qaRouter.route('/answers/:answer_id/report')
-    //     .post(jsonParser, (req, res) => {
-    //         console.log('hi')
-    //         var {answer_id} = req.params;
-    //         var body = req.body;
-    //         console.log(body, 'hi')
-    //         var url = `${apiHost}/qa/answers/${answer_id}/report`;
-    //         axios.put(url, body, {
-    //             'content-type': 'application/json',
-    //             headers: {
-    //                 Authorization: token
-    //             }
-    //         })
-    //         .then(data => {
-    //             res.send(data.data)
-    //         })
-    //         .catch(err => {
-    //             res.sendStatus(500)
-    //         })
-    // })
+// qaRouter.route('/questions/:question_id/helpful')
+//     .post(jsonParser, (req, res) => {
+//         var {question_id} = req.params;
+//         var product_id = req.body;
+//         var url = `${apiHost}/qa/questions/${question_id}/helpful`;
+//         var queryStatement = `UPDATE Questions set Helpful = Helpful + 1 where Product_Id = ${product_id} AND question_id = ${question_id}`;
+//         connection.query(queryStatement, function (error, data){
+//             if (error) res.sendStatus(500);
+//             console.log('not an error')
+//             res.send(data);
+//         })
+//     })
 
 
 module.exports = qaRouter;
