@@ -203,16 +203,29 @@ app.put('/reviews/:review_id/report', (req, res) => {
 app.use('/qa',  qaRouter);
 
 app.post('/answers/answer_id/helpful', (req, res) => {
-        var answer_id = req.body.answer_Id;
-        var question_id = req.body.question_Id;
-        var url = `${apiHost}/qa/questions/${answer_id}/helpful`;
-        var queryStatement = `UPDATE Answers set Helpfulness = Helpfulness + 1 where Answer_Id = ${answer_id} AND Question_Id = ${question_id}`;
-        connection.query(queryStatement, function (error, data){
-            if (error) res.sendStatus(500);
-            console.log('not an error')
-            res.send('Successful Helpful Answer Update');
-        })
+    var answer_id = req.body.answer_Id;
+    var question_id = req.body.question_Id;
+    var queryStatement = `UPDATE Answers set Helpfulness = Helpfulness + 1 where Answer_Id = ${answer_id} AND Question_Id = ${question_id}`;
+    connection.query(queryStatement, function (error, data){
+        if (error) res.sendStatus(500);
+        res.send('Successful Helpful Answer Update');
     })
+})
+
+app.post('/answers/answer_id/report', (req, res) => {
+    var answer_id = req.body.answer_Id;
+    var question_id = req.body.question_Id;
+    console.log(answer_id, question_id, 'hi')
+    var queryStatement = `UPDATE Answers set Reported = 1 where Answer_Id = ${answer_id} AND Question_Id = ${question_id}`;
+    connection.query(queryStatement, function (error, data){
+      console.log('right before error')
+      if (error) {
+        res.sendStatus(500);
+      } else {
+        res.send('Successful Helpful Answer Update');
+      }
+  })
+})
 
 app.post('/interactions', jsonParser, (req, res) => {
   var body = req.body;

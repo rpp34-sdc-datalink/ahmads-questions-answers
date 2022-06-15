@@ -57,7 +57,6 @@ connection.connect(function(err) {
 //     })
 
 var getAnswerQuestionData = function(answersQuery, data, index, dataLength, callback) {
-    console.log(index)
     connection.query(answersQuery, function (error, answerData) {
         if (error) res.sendStats(500);
         data[index]['AnswerData'] = answerData;
@@ -145,64 +144,26 @@ qaRouter.route('/questions/:question_id/helpful')
         })
     })
 
-
-
-// qaRouter.route('/qa/answers/answer_id/helpful')
-//     .post(jsonParser, (req, res) => {
-//         console.log('hiasdfsdfs')
-//         var answer_id = req.body.answer_Id;
-//         var question_id = req.body.question_Id;
-//         console.log(answer_id, question_id)
-//         console.log(product_id, 'skdjf')
-//         var url = `${apiHost}/qa/questions/${answer_id}/helpful`;
-//         var queryStatement = `UPDATE Answers set Helpfulness = Helpfulness + 1 where Answer_Id = ${answer_id} AND Question_Id = ${question_id}`;
-//         connection.query(queryStatement, function (error, data){
-//             if (error) res.sendStatus(500);
-//             console.log('not an error')
-//             res.send('Successful Helpful Answer Update');
-//         })
-//     })
-
-// qaRouter.route('/answers/:answer_id/helpful')
-//     .post(jsonParser, (req, res) => {
-//         var {answer_id} = req.params;
-//         var body = req.body;
-
-//         var url = `${apiHost}/qa/answers/${answer_id}/helpful`;
-//         axios.put(url, body, {
-//             'content-type': 'application/json',
-//             headers: {
-//                 Authorization: token
-//             }
-//         })
-//         .then(data => {
-//             res.send(data.data)
-//         })
-//         .catch(err => {
-//             res.sendStatus(500)
-//         })
-//     })
-
-    qaRouter.route('/answers/:answer_id/report')
-        .post(jsonParser, (req, res) => {
-            console.log('hi')
-            var {answer_id} = req.params;
-            var body = req.body;
-            console.log(body, 'hi')
-            var url = `${apiHost}/qa/answers/${answer_id}/report`;
-            axios.put(url, body, {
-                'content-type': 'application/json',
-                headers: {
-                    Authorization: token
-                }
-            })
-            .then(data => {
-                res.send(data.data)
-            })
-            .catch(err => {
-                res.sendStatus(500)
-            })
-    })
+    // qaRouter.route('/answers/:answer_id/report')
+    //     .post(jsonParser, (req, res) => {
+    //         console.log('hi')
+    //         var {answer_id} = req.params;
+    //         var body = req.body;
+    //         console.log(body, 'hi')
+    //         var url = `${apiHost}/qa/answers/${answer_id}/report`;
+    //         axios.put(url, body, {
+    //             'content-type': 'application/json',
+    //             headers: {
+    //                 Authorization: token
+    //             }
+    //         })
+    //         .then(data => {
+    //             res.send(data.data)
+    //         })
+    //         .catch(err => {
+    //             res.sendStatus(500)
+    //         })
+    // })
 
 
 module.exports = qaRouter;

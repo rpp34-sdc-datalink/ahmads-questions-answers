@@ -96,17 +96,14 @@ class Answer extends React.Component {
     }
 
     report() {
-        fetch(`/qa/answers/answer_id/report`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                ...this.state,
-                product_id: this.props.productId
-            })
+        const Question_Id = this.props?.ans?.Question_Id;
+        const Answer_Id = this.props?.ans?.Answer_Id
+        $.post(`/answers/answer_id/report`, {
+            question_Id: Question_Id,
+            answer_Id: Answer_Id
         })
-        .then(() => {
+        .done((data) => {
+            console.log(data)
             this.setState({
                 reported: true,
             })
