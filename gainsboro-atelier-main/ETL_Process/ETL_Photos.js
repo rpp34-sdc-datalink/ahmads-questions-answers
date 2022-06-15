@@ -23,8 +23,7 @@ async function processLineByLineAnswers_Photos(answers_Photos_Count) {
 
       const {id, answer_id, body} = line;
 
-      var sqlInsertCode = `INSERT INTO Photos (Photo_Id, Photo_url, Question_Id) VALUES (${Number(id)}, "${body}", ${Number(answer_id)})`
-
+      var sqlInsertCode = `INSERT INTO Photos (Photo_Id, Photo_url, Answer_Id) VALUES (${Number(id)}, "${body}", ${Number(answer_id)})`
       stream.pause()
       await connection.query(sqlInsertCode, function (error, result) {
         if (error)  throw error

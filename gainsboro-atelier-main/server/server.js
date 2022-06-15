@@ -190,8 +190,9 @@ app.use('/qa',  qaRouter);
 
 app.post('/interactions', jsonParser, (req, res) => {
   var body = req.body;
-
+  console.log(body);
   var url = `${apiHost}/interactions`;
+  console.log(url)
   axios.post(url, body, {
       'content-type': 'application/json',
       headers: {
@@ -202,7 +203,7 @@ app.post('/interactions', jsonParser, (req, res) => {
       res.send(data.data)
   })
   .catch(err => {
-      console.log(err)
+      console.log('Error in the interactions')
       res.sendStatus(500)
   })
 })

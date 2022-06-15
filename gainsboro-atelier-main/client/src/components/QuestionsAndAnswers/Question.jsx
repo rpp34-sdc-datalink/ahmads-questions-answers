@@ -84,19 +84,19 @@ export class Question extends React.Component {
         return (
             <Container>
                 <div>
-                    Q: {qa.question_body}
+                    Q: {qa.Question_Body}
                 </div>
                 <StyledRightQuestion>
                     <div> Helpful?
                         {this.state.helpfulVoted ?
                             <>
-                                <Count>({qa.question_helpfulness + 1})</Count>
+                                <Count>({qa.Helpful + 1})</Count>
                                 <CheckCircle />
                                 <Message>Thank you for your feedback.</Message>
                             </> :
                             <>
                                 <VoteLink onClick={() => this.saveHelpful()}>Yes</VoteLink>
-                                <Count>({qa.question_helpfulness})</Count>
+                                <Count>({qa.Helpful})</Count>
                             </>
                         }
                     </div>

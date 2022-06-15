@@ -42,5 +42,5 @@ async function processLineByLineAnswers(answersCount) {
 connection.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
-  processLineByLineAnswers(6032836);
+  processLineByLineAnswers(1);
 });
