@@ -67,7 +67,6 @@ var getAnswerQuestionData = function(answersQuery, data, index, dataLength, call
     })
 }
 
-
 qaRouter.route('/questions')
     .get((req, res) => {
         var {product_id} = req.query;
@@ -109,40 +108,6 @@ qaRouter.route('/questions')
         })
     })
 
-// qaRouter.route('/questions/:question_id/helpful')
-//     .post(jsonParser, (req, res) => {
-//         var {question_id} = req.params;
-//         var body = req.body;
-//         console.log(body)
-//         var url = `${apiHost}/qa/questions/${question_id}/helpful`;
-//         axios.put(url, body, {
-//             'content-type': 'application/json',
-//             headers: {
-//                 Authorization: token
-//             }
-//         })
-//         .then(data => {
-//             console.log('hi')
-//             res.send(data.data)
-//         })
-//         .catch(err => {
-//             res.sendStatus(500)
-//         })
-//     })
-
-
-// qaRouter.route('/questions/:question_id/helpful')
-//     .post(jsonParser, (req, res) => {
-//         var {question_id} = req.params;
-//         var product_id = req.body;
-//         var url = `${apiHost}/qa/questions/${question_id}/helpful`;
-//         var queryStatement = `UPDATE Questions set Helpful = Helpful + 1 where Product_Id = ${product_id} AND question_id = ${question_id}`;
-//         connection.query(queryStatement, function (error, data){
-//             if (error) res.sendStatus(500);
-//             console.log('not an error')
-//             res.send(data);
-//         })
-//     })
 
 
 module.exports = qaRouter;
