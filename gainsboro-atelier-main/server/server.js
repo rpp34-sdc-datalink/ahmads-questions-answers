@@ -20,6 +20,20 @@ app.use(compression());
 app.use(express.static(path.join(__dirname, "/../client/dist")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+  host     : '127.0.0.1',
+  user     : 'root',
+  password : '',
+  database : 'SDC'
+});
+
+connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected to the Gosh Darn DataBase!");
+});
+
 
 var options = {
   headers: {
@@ -43,7 +57,7 @@ app.get('/overview/:product_id', (req, res) => {
 
 app.post('/cart', (req, res)=>{
   const {sku_id} = req.body;
-  // console.log(sku_id);
+  console.log('lksjd');
 
   const url = `${apiHost}/cart`;
   const data = {
@@ -188,10 +202,52 @@ app.put('/reviews/:review_id/report', (req, res) => {
 
 app.use('/qa',  qaRouter);
 
+app.post('/answers/answer_id/helpful', (req, res) => {
+    var answer_id = req.body.answer_Id;
+    var question_id = req.body.question_Id;
+    var queryStatement = `UPDATE Answers set Helpfulness = Helpfulness + 1 where Answer_Id = ${answer_id} AND Question_Id = ${question_id}`;
+    connection.query(queryStatement, function (error, data){
+        if (error) res.sendStatus(500);
+        res.send('Successful Helpful Answer Update');
+    })
+})
+
+app.post('/answers/answer_id/report', (req, res) => {
+    var answer_id = req.body.answer_Id;
+    var question_id = req.body.question_Id;
+    console.log(answer_id, question_id, 'hi')
+    var queryStatement = `UPDATE Answers set Reported = 1 where Answer_Id = ${answer_id} AND Question_Id = ${question_id}`;
+    connection.query(queryStatement, function (error, data){
+      if (error) {
+        res.sendStatus(500);
+      } else {
+        res.send('Successful Helpful Answer Update');
+      }
+  })
+})
+
+app.post('/questions/question_id/helpful', (req, res) => {
+  var question_id = req.body.question_Id;
+  var product_id = req.body.product_Id;
+  var queryStatement = `UPDATE Questions set Helpful = Helpful + 1 where Product_Id = ${product_id} AND question_id = ${question_id}`;
+  connection.query(queryStatement, function (error, data){
+      if (error) {
+        res.sendStatus(500);
+      } else {
+        console.log('Successful Questions Id Update')
+        res.send(data);
+      }
+  })
+})
+
+
+
+
 app.post('/interactions', jsonParser, (req, res) => {
   var body = req.body;
-
+  console.log(body);
   var url = `${apiHost}/interactions`;
+  console.log(url)
   axios.post(url, body, {
       'content-type': 'application/json',
       headers: {
@@ -202,7 +258,7 @@ app.post('/interactions', jsonParser, (req, res) => {
       res.send(data.data)
   })
   .catch(err => {
-      console.log(err)
+      console.log('Error in the interactions')
       res.sendStatus(500)
   })
 })

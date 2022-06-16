@@ -76,10 +76,11 @@ export class QuestionAnswer extends React.Component {
             fetch(`/qa/questions?product_id=${this.props.productId}`)
                 .then(response => response.json())
                 .then(data => {
-                    data.results.sort((a, b) => {
-                        return b.question_helpfulness - a.question_helpfulness
+                    console.log(data)
+                    data.sort((a, b) => {
+                        return b['Helpful'] - a['Helpful']
                     });
-                    this.setState({ qas: data.results })
+                    this.setState({ qas: data })
                 });
     }
 
@@ -121,7 +122,7 @@ export class QuestionAnswer extends React.Component {
         const { qas, searchTerm, modalQuestionOpen, selectedQuestion, modalAnswerOpen } = this.state;
         let qasToRender = [];
         if (searchTerm !== '') {
-            qasToRender = qas.filter((qa) => qa.question_body.includes(searchTerm));
+            qasToRender = qas.filter((qa) => qa.Question_Body.includes(searchTerm));
         } else {
             qasToRender = qas.slice(0, this.state.showCount);
         }
@@ -131,17 +132,17 @@ export class QuestionAnswer extends React.Component {
                 <h5>QUESTIONS & ANSWERS</h5>
                 <SearchBar type="text" placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...' onChange={(e) => this.setSearchTerm(e.target.value)}  />
                 {qasToRender.map((qa) => {
-                    const answersPrioritizingSeller = Object.values(qa.answers).sort((a, b) => {
-                        if (a.answerer_name === 'Seller') {
+                    const answersPrioritizingSeller = Object.values(qa.AnswerData).sort((a, b) => {
+                        if (a.Answerer_Name === 'Seller') {
                             return -1;
-                        } else if (b.answerer_name === 'Seller') {
+                        } else if (b.Answerer_Name === 'Seller') {
                             return 1;
                         }
                         return 0;
                     });
 
                     return (
-                    <QABlock key={qa.question_id}>
+                    <QABlock key={qa.Question_Id}>
                         <Question qa={qa} productId={this.props.productId}>
                             <QuestionAction onClick={() => this.openAnswerModal(qa.question_id)}>
                                 Add answer

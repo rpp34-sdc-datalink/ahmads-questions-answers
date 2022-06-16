@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {MdCheckCircle, MdOutlineClose} from 'react-icons/md'
-
+import $ from "jquery";
 
 const VoteLink = styled.a`
   & {
@@ -67,25 +67,22 @@ class Answer extends React.Component {
         super(props);
         this.state = {
             helpfulVoted: false,
-            reported: this.props.reported || false,
+            reported: (this.props?.Reported === 1) || false,
             showImage: false
         }
         this.saveHelpful = this.saveHelpful.bind(this);
         this.handleImageClick = this.handleImageClick.bind(this);
     }
-    
+
     saveHelpful() {
-        fetch(`/qa/answers/${this.props.id}/helpful`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                ...this.state,
-                product_id: this.props.productId
-            })
+        const Question_Id = this.props?.ans?.Question_Id;
+        const Answer_Id = this.props?.ans?.Answer_Id
+        $.post(`/answers/answer_id/helpful`, {
+            question_Id: Question_Id,
+            answer_Id: Answer_Id
         })
-        .then(() => {
+        .done((data) => {
+            console.log(data)
             this.setState({
                 helpfulVoted: true,
             })
@@ -99,66 +96,63 @@ class Answer extends React.Component {
     }
 
     report() {
-        fetch(`/qa/answers/${this.props.id}/report`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                ...this.state,
-                product_id: this.props.productId
-            })
+        const Question_Id = this.props?.ans?.Question_Id;
+        const Answer_Id = this.props?.ans?.Answer_Id
+        $.post(`/answers/answer_id/report`, {
+            question_Id: Question_Id,
+            answer_Id: Answer_Id
         })
-        .then(() => {
+        .done((data) => {
+            console.log(data)
             this.setState({
                 reported: true,
             })
         })
     }
-    
+
     render() {
-        var formatedDate = new Date(this.props.date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
+        var unix_timestamp = this.props?.ans?.Answer_Date;
+        console.log(this.props.ans)
+        var formatedDate = new Date(unix_timestamp * 1000);
+        formatedDate = formatedDate.toString();
+        console.log(typeof formatedDate)
         return (
         <>
-            <div key={this.props.body} >
-                <span style={{ fontWeight: 600 }}>A:</span> {this.props.body}
+            <div key={this.props?.ans.Answer_Body} >
+                <span style={{ fontWeight: 600 }}>A:</span> {this.props?.ans?.Answer_Body}
             </div>
-            {this.props.photos.length > 0 
-                && this.props.photos.map(
-                    photo => <Image 
+            {/* {this.props?.photos?.length > 0
+                && this.props?.photos.map(
+                    photo => <Image
                             key={photo}
                             style={{backgroundImage: `url(${photo})`}}
                             onclick={() => {this.handleImageClick(photo)}}>
                     </Image>)
-            }
+            } */}
             <p>
                 <small>
-                    by {this.props.answerer_name}, {formatedDate} | Helpful? 
-                    {this.state.helpfulVoted ? 
+                    by {this.props?.ans?.Answerer_Name}, {formatedDate} | Helpful?
+                    {this.state?.helpfulVoted ?
                         <>
-                            <Count>({this.props.helpfulness + 1})</Count>
+                            <Count>({this.props?.ans?.Helpfulness + 1})</Count>
                             <CheckCircle />
                             <ColoredMessage>Thank you for your feedback.</ColoredMessage>
                         </> :
                         <>
-                            <VoteLink onClick={() => this.saveHelpful()}>Yes</VoteLink>
-                            <Count>({this.props.helpfulness})</Count>
-                        </> 
+                            <VoteLink onClick={() => this.saveHelpful()} >Yes</VoteLink>
+                            <Count>({this.props?.ans?.Helpfulness})</Count>
+                        </>
                     }
                 <span>| </span>
-                {this.state.reported ? 
+                {(this.state?.reported === 1) ?
                         <>
                             <Message>Reported</Message>
                         </> :
                         <>
                             <VoteLink onClick={() => this.report()}>Report</VoteLink>
-                        </> 
+                        </>
                 }
-                </small>       
+                </small>
              </p>
         </>
         )
@@ -181,13 +175,13 @@ export class AnswersGroup extends React.Component {
     }
     // Up to two answers should display for each question.
     render() {
-        const answersToRender = this.state.expanded ? this.props.answers : this.props.answers.slice(0, 2);
+        const answersToRender = this.state.expanded ? this.props?.answers : this.props?.answers.slice(0, 2);
 
         return (
         <div>
-            {answersToRender.map((ans) => <Answer key={ans.body} {...ans} />)}
+            {answersToRender.map((ans) => <Answer key={ans.Answer_Id} ans = {ans} />)}
             <button onClick={this.flipExpanded}>
-                {this.state.expanded ? 'Show less answers' : 'Load more answers'}
+                {this.state?.expanded ? 'Show less answers' : 'Load more answers'}
             </button>
         </div>)
     }
