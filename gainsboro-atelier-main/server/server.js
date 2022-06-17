@@ -203,7 +203,7 @@ app.put('/reviews/:review_id/report', (req, res) => {
 
 var getAnswerQuestionData = function(answersQuery, data, index, dataLength, callback) {
   connection.query(answersQuery, function (error, answerData) {
-      if (error) res.sendStats(500);
+      if (error) res.sendStatus(500);
       data[index]['AnswerData'] = answerData;
       if (dataLength === index) {
           callback(null, data);
@@ -213,12 +213,12 @@ var getAnswerQuestionData = function(answersQuery, data, index, dataLength, call
 
 app.route('/questions')
   .get((req, res) => {
-      var {product_id} = req.query;
-      if (product_id === null || product_id === undefined) product_Id = 71967;
-      var url = `${apiHost}/qa/questions?product_id=${product_id}`;
-      var queryStatement = `Select * from Questions where Product_Id = ${product_id}`;
+    var {product_id} = req.query;
+    if (product_id === null || product_id === undefined) product_id = 71967;
+    var url = `${apiHost}/questions?product_id=${product_id}`;
+    var queryStatement = `Select * from Questions where Product_Id = ${product_id}`;
       connection.query(queryStatement, function (error, data){
-          if (error) res.sendStatus(500);
+        if (error) res.sendStatus(500);
           var dataLength = data.length - 1;
           const loop = async () => {
               var count = 0;
@@ -226,7 +226,8 @@ app.route('/questions')
                   var question_Id = data[count]['Question_Id'];
                   var answersQuery = `Select * from Answers where Question_Id = ${question_Id}`
                   await getAnswerQuestionData(answersQuery, data, count, dataLength, function (error, data) {
-                      res.sendStatus(200).send(data);
+                    console.log('data', data.length);
+                    res.send(data);
                   });
                   count++;
               }
