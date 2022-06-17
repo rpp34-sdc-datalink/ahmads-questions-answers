@@ -15,7 +15,8 @@
     "build": "webpack --mode production",
     "etlQuestions": "node ETL_Process/ETL_Questions.js",
     "etlAnswers": "node ETL_Process/ETL_Answers.js",
-    "etlPhotos": "node ETL_Process/ETL_Photos.js"
+    "etlPhotos": "node ETL_Process/ETL_Photos.js",
+    "apiTest": "jest server/api.test.js"
   },
   "repository": {
     "type": "git",
@@ -30,7 +31,7 @@
   "dependencies": {
     "axios": "^0.26.1",
     "body-parser": "^1.19.2",
-    "cloudinary": "^1.29.1",
+    "cloudinary": "^1.30.0",
     "compression": "^1.7.4",
     "csv": "^6.0.5",
     "csv-parse": "^5.1.0",
@@ -73,6 +74,7 @@
     "postcss": "^8.4.12",
     "postcss-loader": "^6.2.1",
     "style-loader": "^3.3.1",
+    "supertest": "^6.2.3",
     "webpack": "^5.71.0",
     "webpack-cli": "^4.9.2",
     "whatwg-fetch": "^3.6.2"
