@@ -217,7 +217,7 @@ app.route('/questions')
     if (product_id === null || product_id === undefined) product_id = 71968;
     var url = `${apiHost}/questions?product_id=${product_id}`;
     var queryStatement = `Select * from Questions where Product_Id = ${product_id}`;
-      connection.query(queryStatement, function (error, data){
+    connection.query(queryStatement, function (error, data){
         if (error) res.sendStatus(500);
           var dataLength = data.length - 1;
           const loop = async () => {
@@ -226,7 +226,6 @@ app.route('/questions')
                   var question_Id = data[count]['Question_Id'];
                   var answersQuery = `Select * from Answers where Question_Id = ${question_Id}`
                   await getAnswerQuestionData(answersQuery, data, count, dataLength, function (error, data) {
-                    console.log('data', data.length);
                     res.send(data);
                   });
                   count++;
@@ -240,10 +239,10 @@ app.route('/questions')
     var date =  Date.now();
     var questionInsert = `SELECT MAX (Question_Id) from Questions`;
     connection.query(questionInsert, function (error, data){
-        if (error) res.sendStatus(500);
-        const data2 = data['MAX(Question_Id)'];
-        var questionMax = data[0]['MAX (Question_Id)'] + 1;
-        var sqlInsertCode = `INSERT INTO questions (Question_Id, Question_Body, Question_Date, Asker_Name, Product_Id, Reported, Helpful) VALUES (${questionMax}, "${body}", "${date}", "${name}", ${product_id}, ${0}, ${0})`;
+      if (error) res.sendStatus(500);
+      const data2 = data['MAX(Question_Id)'];
+      var questionMax = data[0]['MAX (Question_Id)'] + 1;
+      var sqlInsertCode = `INSERT INTO questions (Question_Id, Question_Body, Question_Date, Asker_Name, Product_Id, Reported, Helpful) VALUES (${questionMax}, "${body}", "${date}", "${name}", ${product_id}, ${0}, ${0})`;
         connection.query(sqlInsertCode, function(err, data) {
             if (err) res.sendStatus(500);
             res.send('data')
