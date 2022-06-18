@@ -272,7 +272,7 @@ app.post('/answers/answer_id/report', (req, res) => {
       if (error) {
         res.sendStatus(500);
       } else {
-        res.send('Successful Helpful Answer Update');
+        res.send('Successful Reported Answer Update');
       }
   })
 })
