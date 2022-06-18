@@ -18,21 +18,19 @@ connection.connect(function(err) {
 
 
 describe('Test the questions get request', () => {
+  var response = null;
+  var data = null;
   test('GET /questions', async () => {
-    const response = await request(api).get('/questions');
+    response = await request(api).get('/questions');
     expect(response.status).toBe(200);
-    // response.data.forEach((questionObject) => {
-    //   console.log(questionObject)
-    //   expect(questionObject['Question_Id'].toBeDefined());
-    // })
+    data = JSON.parse(response.text);
+  })
+
+  test('GET /questions', async () => {
+    expect(typeof data[0]).toBe('object');
+  })
+
+  test('GET /questions', async () => {
+    expect(data[0]['Question_Id']).toBe(253159);
   })
 });
-
-// .then((res) => {
-//   let oneRecord = JSON.parse(res.text).results[0];
-//   let dataPoints = Object.keys(oneRecord);
-//   dataPoints.forEach((lineName) => {
-//     expect(oneRecord[lineName]).toBeDefined();
-//   });
-//   done();
-// })

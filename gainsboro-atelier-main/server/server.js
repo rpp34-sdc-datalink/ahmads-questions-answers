@@ -214,7 +214,7 @@ var getAnswerQuestionData = function(answersQuery, data, index, dataLength, call
 app.route('/questions')
   .get((req, res) => {
     var {product_id} = req.query;
-    if (product_id === null || product_id === undefined) product_id = 71967;
+    if (product_id === null || product_id === undefined) product_id = 71968;
     var url = `${apiHost}/questions?product_id=${product_id}`;
     var queryStatement = `Select * from Questions where Product_Id = ${product_id}`;
       connection.query(queryStatement, function (error, data){
