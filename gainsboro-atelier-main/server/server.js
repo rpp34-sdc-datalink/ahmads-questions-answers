@@ -12,7 +12,7 @@ const qaRouter = require('./qa');
 const jsonParser = bodyParser.json();
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 const apiHost = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp';
 
 // compress all requests
@@ -213,8 +213,9 @@ var getAnswerQuestionData = function(answersQuery, data, index, dataLength, call
 
 app.route('/questions')
   .get((req, res) => {
-    var {product_id} = req.query;
-    if (product_id === null || product_id === undefined) product_id = 71968;
+    // var {product_id} = req.query;
+    product_id = Math.floor(1000 * Math.random()) + 71968;
+    // if (product_id === null || product_id === undefined) product_id = 71968;
     var url = `${apiHost}/questions?product_id=${product_id}`;
     var queryStatement = `Select * from Questions where Product_Id = ${product_id}`;
     connection.query(queryStatement, function (error, data){
@@ -226,6 +227,7 @@ app.route('/questions')
                   var question_Id = data[count]['Question_Id'];
                   var answersQuery = `Select * from Answers where Question_Id = ${question_Id}`
                   await getAnswerQuestionData(answersQuery, data, count, dataLength, function (error, data) {
+                    console.log(data)
                     res.send(data);
                   });
                   count++;
@@ -317,3 +319,5 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
+
+

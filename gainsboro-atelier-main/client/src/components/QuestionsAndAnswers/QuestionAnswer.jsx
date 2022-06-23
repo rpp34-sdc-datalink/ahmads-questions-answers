@@ -73,7 +73,7 @@ export class QuestionAnswer extends React.Component {
 
     // Questions should appear in order of ‘helpfulness’, corresponding to how many users have indicated that the question was helpful.
     getData() {
-            fetch(`/qa/questions?product_id=${this.props.productId}`)
+            fetch(`/questions?product_id=${this.props.productId}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)

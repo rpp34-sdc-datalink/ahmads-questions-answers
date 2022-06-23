@@ -72,7 +72,7 @@ export class ModalAnswer extends React.Component {
         Promise.all(this.state.photos.map(
             (pic) => this.uploadToCloudinary(pic))
         ).then((picUrls) => {
-            fetch(`/qa/questions/${this.props.questionId}/answers`, {
+            fetch(`/questions/${this.props.questionId}/answers`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

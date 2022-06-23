@@ -60,7 +60,7 @@ export class ModalQuestion extends React.Component {
     }
 
     saveQuestion() {
-        fetch('/qa/questions', {
+        fetch('/questions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -84,21 +84,21 @@ export class ModalQuestion extends React.Component {
                     <h4>Ask Your Question</h4>
                     <h4>About the {this.props.overview.name}</h4>
                     <label>Your Question *</label>
-                    <input 
-                        value={this.state.body} 
-                        onChange={(e) => this.updateField(e.target.value, 'body')} 
+                    <input
+                        value={this.state.body}
+                        onChange={(e) => this.updateField(e.target.value, 'body')}
                         placeholder='Why did you like the product or not?'
                     />
                     <label>Your email *</label>
-                    <input 
+                    <input
                         type='email'
-                        value={this.state.email} 
+                        value={this.state.email}
                         onChange={(e) => this.updateField(e.target.value, 'email')}
-                        placeholder='Example: jack@email.com' 
+                        placeholder='Example: jack@email.com'
                     />
                     <label>For authentication reasons, you will not be emailed</label>
                     <label>What is your nickname *</label>
-                    <input value={this.state.name} onChange={(e) => this.updateField(e.target.value, 'name')} 
+                    <input value={this.state.name} onChange={(e) => this.updateField(e.target.value, 'name')}
                     placeholder='Example: jackson11!'/>
                     <button onClick={this.saveQuestion}>Submit question</button>
                 </Content>

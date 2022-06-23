@@ -16,7 +16,8 @@
     "etlQuestions": "node ETL_Process/ETL_Questions.js",
     "etlAnswers": "node ETL_Process/ETL_Answers.js",
     "etlPhotos": "node ETL_Process/ETL_Photos.js",
-    "apiTest": "jest server/api.test.js"
+    "apiTest": "jest --coverage server/api.test.js",
+    "k6": "k6 run k6.js"
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,7 @@
     "express": "^4.17.3",
     "fs": "^0.0.1-security",
     "jquery": "^3.6.0",
+    "k6": "^0.0.0",
     "mongoose": "^6.3.3",
     "multer": "^1.4.4",
     "mysql": "^2.18.1",
