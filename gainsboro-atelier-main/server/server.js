@@ -5,6 +5,7 @@ const axios = require("axios");
 const compression = require('compression')
 const bodyParser = require("body-parser");
 var token = null;
+var removedToken = null
 const uploadImages = require("../imageAPI/imageAPI.js");
 
 const upload = multer({storage: multer.diskStorage({})});
