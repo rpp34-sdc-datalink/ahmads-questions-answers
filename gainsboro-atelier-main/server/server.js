@@ -37,14 +37,14 @@ connection.connect(function(err) {
 
 var options = {
   headers: {
-    Authorization: token
+    none: removedToken
   }
 };
 
 app.get('/overview/:product_id', (req, res) => {
   const {product_id} = req.params;
   const options = {
-    headers: {Authorization: token}
+    headers: {none: removedToken}
   };
     axios.get(`${apiHost}/products/${product_id}/styles/`, options)
     .then(async ({data: {results: styleData}}) => {
@@ -64,7 +64,7 @@ app.post('/cart', (req, res)=>{
   }
   const options = {
     headers: {
-      Authorization: token,
+      none: removedToken,
     }
   };
 
@@ -176,7 +176,7 @@ app.post('/reviews', upload.array("images"), (req, res) => {
     }
     var config = {
       headers: {
-        Authorization: token,
+        none: removedToken,
         'content-type': 'application/json'
       }
     }
@@ -299,7 +299,7 @@ app.post('/interactions', jsonParser, (req, res) => {
   axios.post(url, body, {
       'content-type': 'application/json',
       headers: {
-          Authorization: token
+          none: removedToken
       }
   })
   .then(data => {
