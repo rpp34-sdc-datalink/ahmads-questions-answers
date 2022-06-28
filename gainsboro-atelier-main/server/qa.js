@@ -1,6 +1,6 @@
 const express = require("express");
 const axios = require("axios");
-const {token} = require("../config.js");
+// const {token} = require("../config.js");
 const bodyParser = require("body-parser");
 var mysql = require('mysql');
 
