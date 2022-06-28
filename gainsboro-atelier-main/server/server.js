@@ -1,5 +1,6 @@
 const path = require("path")
 const express = require("express");
+require('dotenv').config()
 const multer = require("multer");
 const axios = require("axios");
 const compression = require('compression')
@@ -23,10 +24,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 var mysql = require('mysql');
 
+var pass = process.env.MYSQL_PASSWORD;
+
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   user     : 'root',
-  password : '',
+  password : pass,
   database : 'SDC'
 });
 
