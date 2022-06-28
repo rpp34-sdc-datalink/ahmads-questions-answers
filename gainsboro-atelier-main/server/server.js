@@ -27,7 +27,7 @@ var mysql = require('mysql');
 var pass = process.env.MYSQL_PASSWORD;
 console.log(pass)
 var connection = mysql.createConnection({
-  host     : '34.201.72.133',
+  host     : '127.0. 0.1',
   user     : 'ahmad',
   password : process.env.MYSQL_PASSWORD,
   database : 'SDC'
