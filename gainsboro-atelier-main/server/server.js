@@ -24,10 +24,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 var mysql = require('mysql');
 
-// var pass = process.env.MYSQL_PASSWORD;
-
+var pass = process.env.MYSQL_PASSWORD;
+console.log(pass)
 var connection = mysql.createConnection({
-  host     : 'localhost',
+  host     : '34.201.72.133',
   user     : 'root',
   password : process.env.MYSQL_PASSWORD,
   database : 'SDC'
