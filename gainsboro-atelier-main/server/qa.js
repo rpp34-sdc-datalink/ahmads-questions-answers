@@ -10,17 +10,17 @@ const jsonParser = bodyParser.json();
 const qaRouter = express.Router({mergeParams: true});
 
 
-var connection = mysql.createConnection({
-  host     : '127.0.0.1',
-  user     : 'root',
-  password : '',
-  database : 'SDC'
-});
+// var connection = mysql.createConnection({
+//   host     : '127.0.0.1',
+//   user     : 'root',
+//   password : '',
+//   database : 'SDC'
+// });
 
-connection.connect(function(err) {
-    if (err) throw err;
-    // console.log("Connected to the Gosh Darn DataBase!");
-});
+// connection.connect(function(err) {
+//     if (err) throw err;
+//     // console.log("Connected to the Gosh Darn DataBase!");
+// });
 
 // var getAnswerQuestionData = function(answersQuery, data, index, dataLength, callback) {
 //     connection.query(answersQuery, function (error, answerData) {

@@ -10,7 +10,7 @@ var removedToken = null
 const uploadImages = require("../imageAPI/imageAPI.js");
 
 const upload = multer({storage: multer.diskStorage({})});
-const qaRouter = require('./qa');
+
 const jsonParser = bodyParser.json();
 
 const app = express();
