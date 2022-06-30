@@ -28,6 +28,7 @@ var pass = process.env.MYSQL_PASSWORD;
 var user = process.env.MYSQL_USER;
 var host = process.env.MYSQL_HOST;
 var part = process.env.MYSQL_PART;
+console.log(pass, user, host, part)
 
 var connection = mysql.createConnection({
   host     : host,
