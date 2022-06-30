@@ -33,8 +33,7 @@ var connection = mysql.createConnection({
   host     : host,
   user     : user,
   password : pass,
-  database : 'SDC',
-  port     : part
+  database : 'SDC'
 });
 
 connection.connect(function(err) {
