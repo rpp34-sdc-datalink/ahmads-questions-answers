@@ -37,8 +37,8 @@ var connection = mysql.createConnection({
 });
 
 connection.connect(function(err) {
-    if (err) throw err;
-    // console.log("Connected to the Gosh Darn DataBase!");
+    if (err) console.log(err)
+    console.log("Connected to the Gosh Darn DataBase!");
 });
 
 
