@@ -27,12 +27,14 @@ var mysql = require('mysql');
 var pass = process.env.MYSQL_PASSWORD;
 var user = process.env.MYSQL_USER;
 var host = process.env.MYSQL_HOST;
+var part = process.env.MYSQL_PART;
 
 var connection = mysql.createConnection({
   host     : host,
   user     : user,
   password : pass,
-  database : 'SDC'
+  database : 'SDC',
+  port     : part
 });
 
 connection.connect(function(err) {
