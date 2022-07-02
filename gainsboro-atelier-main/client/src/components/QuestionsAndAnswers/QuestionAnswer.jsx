@@ -161,19 +161,19 @@ export class QuestionAnswer extends React.Component {
                     </Button>
                 </ButtonsContainer>
                 </>
-                <ModalQuestion
+                {/* <ModalQuestion
                     isOpen={modalQuestionOpen}
                     close={() => this.closeQuestionModal()}
                     productId={this.props.productId}
                     overview={this.props.overview}
-                />
-                <ModalAnswer
+                /> */}
+                {/* <ModalAnswer
                     questionId={selectedQuestion}
                     isOpen={modalAnswerOpen}
                     close={() => this.closeAnswerModal()}
                     productId={this.props.productId}
                     overview={this.props.overview}
-                />
+                /> */}
             </Container>
         )
     }
