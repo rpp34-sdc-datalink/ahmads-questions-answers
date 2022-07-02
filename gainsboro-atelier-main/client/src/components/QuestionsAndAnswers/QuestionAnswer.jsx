@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { AnswersGroup } from './Answers.jsx';
-import { ModalQuestion } from './ModalQuestion.jsx';
-import { ModalAnswer } from './ModalAnswer.jsx';
+// import { ModalQuestion } from './ModalQuestion.jsx';
+// import { ModalAnswer } from './ModalAnswer.jsx';
 import { withAnalytics } from '../HOCs/withAnalytics.js';
 import { Question } from './Question.jsx';
 
