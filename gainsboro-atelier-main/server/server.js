@@ -15,7 +15,7 @@ const upload = multer({storage: multer.diskStorage({})});
 const jsonParser = bodyParser.json();
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.MYSQL_POST;
 const apiHost = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp';
 
 // compress all requests
