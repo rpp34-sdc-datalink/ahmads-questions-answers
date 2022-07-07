@@ -11,6 +11,7 @@ const uploadImages = require("../imageAPI/imageAPI.js");
 
 var loaderioToken = require('../loaderio-72ea72623c0da7c1df006997fdec33c0.txt');
 
+
 const upload = multer({storage: multer.diskStorage({})});
 
 const jsonParser = bodyParser.json();
