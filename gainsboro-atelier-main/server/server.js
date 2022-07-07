@@ -9,7 +9,7 @@ var token = null;
 var removedToken = null
 const uploadImages = require("../imageAPI/imageAPI.js");
 
-var loaderioToken = 'loaderio-72ea72623c0da7c1df006997fdec33c0';
+var loaderioToken = require('loaderio-72ea72623c0da7c1df006997fdec33c0');
 
 const upload = multer({storage: multer.diskStorage({})});
 
@@ -328,12 +328,12 @@ app.listen(PORT, () => {
   // console.log(`connected to port ${PORT}`);
 });
 
-app.route('/loaderio-36ea9182062fd61c66d2cb08c2a76c7a.txt')
+app.route('/loaderio-36ea9182062fd61c66d2cb08c2a76c7a')
   .get((req, res) => {
-   res.send('loaderio-36ea9182062fd61c66d2cb08c2a76c7a');
+   res.send(loaderioToken);
   })
   .post(jsonParser, (req, res) => {
-    res.send('loaderio-36ea9182062fd61c66d2cb08c2a76c7a');
+    res.send(loaderioToken);
 })
 
 
