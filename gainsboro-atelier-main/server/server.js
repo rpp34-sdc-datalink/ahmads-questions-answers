@@ -328,6 +328,15 @@ app.listen(PORT, () => {
   // console.log(`connected to port ${PORT}`);
 });
 
+app.route('/loaderio-36ea9182062fd61c66d2cb08c2a76c7a.txt')
+  .get((req, res) => {
+   res.send('loaderio-36ea9182062fd61c66d2cb08c2a76c7a');
+  })
+  .post(jsonParser, (req, res) => {
+    res.send('loaderio-36ea9182062fd61c66d2cb08c2a76c7a');
+})
+
+
 module.exports = app;
 
 
