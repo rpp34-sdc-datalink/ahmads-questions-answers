@@ -1,4 +1,3 @@
-console.log('severfile called')
 const path = require("path")
 const express = require("express");
 require('dotenv').config()
@@ -9,6 +8,8 @@ const bodyParser = require("body-parser");
 var token = null;
 var removedToken = null
 const uploadImages = require("../imageAPI/imageAPI.js");
+
+var loaderioToken = 'loaderio-72ea72623c0da7c1df006997fdec33c0';
 
 const upload = multer({storage: multer.diskStorage({})});
 
